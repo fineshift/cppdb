@@ -37,9 +37,9 @@ endif()
 
 include_directories(.)
 
-add_definitions(-DCPPDB_LIBRARY_PREFIX="${CMAKE_SHARED_LIBRARY_PREFIX}")
-add_definitions(-DCPPDB_LIBRARY_SUFFIX="${CMAKE_SHARED_LIBRARY_SUFFIX}")
-add_definitions(-DCPPDB_SOVERSION="${CPPDB_SOVERSION}")
+add_definitions(-DCPPDB_LIBRARY_PREFIX="\\"${CMAKE_SHARED_LIBRARY_PREFIX}\\"")
+add_definitions(-DCPPDB_LIBRARY_SUFFIX="\\"${CMAKE_SHARED_LIBRARY_SUFFIX}\\"")
+add_definitions(-DCPPDB_SOVERSION="\\"${CPPDB_SOVERSION}\\"")
 
 # Basic common configuration
 
