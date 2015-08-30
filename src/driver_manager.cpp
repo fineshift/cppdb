@@ -114,11 +114,14 @@ namespace cppdb {
 		}
 		garbage.clear();
 	}
+    
+    #define STRINGIFY(x) XSTRINGIFY(x)
+    #define XSTRINGIFY(x) #x
 
 	#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) || defined(__CYGWIN__)
 	
-	#	define CPPDB_LIBRARY_SUFFIX_V1 "-" CPPDB_SOVERSION CPPDB_LIBRARY_SUFFIX
-	#	define CPPDB_LIBRARY_SUFFIX_V2 CPPDB_LIBRARY_SUFFIX
+	#	define CPPDB_LIBRARY_SUFFIX_V1 "-" STRINGIFY(CPPDB_SOVERSION) STRINGIFY(CPPDB_LIBRARY_SUFFIX)
+	#	define CPPDB_LIBRARY_SUFFIX_V2 STRINGIFY(CPPDB_LIBRARY_SUFFIX)
 	
 	#elif defined(__APPLE__)
 	
@@ -142,7 +145,7 @@ namespace cppdb {
 
 	#endif
 
-
+    
 	ref_ptr<backend::driver> driver_manager::load_driver(connection_info const &conn)
 	{
 		std::vector<std::string> so_names;
@@ -162,8 +165,8 @@ namespace cppdb {
 			so_names.push_back(module);
 		}
 		else {
-			std::string so_name1 = CPPDB_LIBRARY_PREFIX "cppdb_" + conn.driver + CPPDB_LIBRARY_SUFFIX_V1;
-			std::string so_name2 = CPPDB_LIBRARY_PREFIX "cppdb_" + conn.driver + CPPDB_LIBRARY_SUFFIX_V2;
+			std::string so_name1 = STRINGIFY(CPPDB_LIBRARY_PREFIX) "cppdb_" + conn.driver + CPPDB_LIBRARY_SUFFIX_V1;
+			std::string so_name2 = STRINGIFY(CPPDB_LIBRARY_PREFIX) "cppdb_" + conn.driver + CPPDB_LIBRARY_SUFFIX_V2;
 
 			for(unsigned i=0;i<search_paths.size();i++) {
 				so_names.push_back(search_paths[i]+"/" + so_name1);

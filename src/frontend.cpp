@@ -683,9 +683,11 @@ namespace cppdb {
 		conn_->connection_specific_reset(t,p);
 	}
 
+    #define STRINGIFY(x) XSTRINGIFY(x)
+    #define XSTRINGIFY(x) #x
 	char const *version_string()
 	{
-		return CPPDB_VERSION;
+		return STRINGIFY(CPPDB_VERSION);
 	}
 	int version_number()
 	{
